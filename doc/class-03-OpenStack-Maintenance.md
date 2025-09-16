@@ -2048,6 +2048,21 @@ Fluent Bit v1.5.7
 - Glance 上传 / 下载 速度慢：看是不是管理网带宽小影响
 - Glance 上传下载时，虚拟机 IO 时候被影响：查看 ceph 的 performance，ceph tuning
 
+如何给虚拟机做磁盘扩容
+
+```bash
+# 首先，在 openstack 平台上，对磁盘作扩容
+
+# 然后，在虚机内部，执行
+lsblk
+# 能看到 sda 磁盘的大小，扩容完成，但 sda1 还没有
+apt install -y cloud-guest-utils
+growpart /dev/sda 1
+resize2fs /dev/sda1
+du -h /
+# 可以看到扩容完成
+```
+
 ## 客户的最佳实践和 FAQ
 
 [Catalog](#catalog)
